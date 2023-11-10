@@ -3,14 +3,16 @@ version: 0.2
 phases:
   install:
     commands:
-      # If there are any install commands, place them here.
-      # For a simple HTML project, this section might not be needed.
+      # Add any install commands your project needs.
   build:
     commands:
-      # No build commands are needed for a basic HTML file.
-      - echo "Deploying index.html to S3"
+      - echo "Building project"
+      # Add build commands if your project needs any.
+  post_build:
+    commands:
+      - echo "Build and post-build steps completed"
 
 artifacts:
   files:
     - index.html
-    
+  discard-paths: yes
