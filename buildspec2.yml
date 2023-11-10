@@ -15,4 +15,3 @@ phases:
 artifacts:
   files:
     - index.html
-  discard-paths: yes
