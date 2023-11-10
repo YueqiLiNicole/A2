@@ -4,16 +4,19 @@ phases:
   install:
     commands:
       # Add any install commands your project needs.
-  phases:
+      # For example: npm install, if you're using Node.js
+
   build:
     commands:
-      - ls -l
       - echo "Building project"
+      - ls -l  # Lists the files in the current directory
       # Add build commands if your project needs any.
+      # For example: npm run build, for Node.js applications
+
   post_build:
     commands:
       - echo "Build and post-build steps completed"
 
 artifacts:
   files:
-    - '**/*'
+    - '**/*'  # This will include all files and directories in the build output
