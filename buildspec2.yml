@@ -8,7 +8,7 @@ phases:
   build:
     commands:
       # No build commands are needed for a basic HTML file.
-      - echo "No build commands to run"
+      - echo "Deploying index.html to S3"
 
 artifacts:
   files:
