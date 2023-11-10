@@ -4,8 +4,10 @@ phases:
   install:
     commands:
       # Add any install commands your project needs.
+  phases:
   build:
     commands:
+      - ls -l
       - echo "Building project"
       # Add build commands if your project needs any.
   post_build:
@@ -14,4 +16,4 @@ phases:
 
 artifacts:
   files:
-    - index.html
+    - '**/*'
