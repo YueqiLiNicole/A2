@@ -20,7 +20,7 @@ artifacts:
     - search-photo.zip  # Output the zipped lambda function package
   discard-paths: yes  # Discards the directory structure in the artifact
 
-Uncomment below if you need actions on build failure
+
 post_build:
   commands:
     - echo This will run even if the build fails.
