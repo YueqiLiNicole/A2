@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      # If there are any install commands, place them here.
+      # For a simple HTML project, this section might not be needed.
+  build:
+    commands:
+      # No build commands are needed for a basic HTML file.
+      - echo "No build commands to run"
+
+artifacts:
+  files:
+    - index.html
+    - 'assets/**/*' # Include this line if you have an 'assets' directory with images, CSS, JS, etc.
+  # If your project has more files/directories, list them here or use '**/*' to include everything.
