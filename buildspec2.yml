@@ -13,5 +13,4 @@ phases:
 artifacts:
   files:
     - index.html
-    - 'assets/**/*' # Include this line if you have an 'assets' directory with images, CSS, JS, etc.
-  # If your project has more files/directories, list them here or use '**/*' to include everything.
+    
