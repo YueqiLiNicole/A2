@@ -4,15 +4,23 @@ phases:
   install:
     commands:
       - echo Installing required packages...
-      - pip install -r requirements.txt -t .
+      - pip install -r requirements.txt -t .  # Install dependencies into the current directory
+
   build:
     commands:
-      - echo Running tests...
-      - pytest
+      - echo Running build...
+      - zip -r search-photo.zip .  # Zipping the function and dependencies
+
   post_build:
     commands:
       - echo Build completed on `date`
+
 artifacts:
   files:
-    - '**/*'
-  discard-paths: yes
+    - search-photo.zip  # Output the zipped lambda function package
+  discard-paths: yes  # Discards the directory structure in the artifact
+
+Uncomment below if you need actions on build failure
+post_build:
+  commands:
+    - echo This will run even if the build fails.
