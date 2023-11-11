@@ -17,7 +17,7 @@ phases:
 
 artifacts:
   files:
-    - search-photo.zip  # Output the zipped lambda function package
+    - '**/*'  # Output the zipped lambda function package
   discard-paths: yes  # Discards the directory structure in the artifact
 
 
