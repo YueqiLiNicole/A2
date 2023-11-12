@@ -29,8 +29,7 @@ phases:
       # Install any necessary dependencies
       # e.g., AWS CLI, specific software or libraries required by your Lambda
       - echo Installing source dependencies...
-      - apt-get update
-      - apt-get install zip -y
+      - pip install -r requirements.txt -t .
 
   pre_build:
     commands:
