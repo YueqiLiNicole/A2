@@ -5,7 +5,7 @@ from botocore.httpsession import URLLib3Session
 from botocore.auth import SigV4Auth
 from botocore.awsrequest import AWSRequest
 from botocore.session import get_session
-from botocore.vendored import requests as botocore_requests  # Deprecated in newer versions
+from botocore.vendored import requests as botocore_requests  # Deprecated in newer version
 
 # Define the client to interact with Lex
 client = boto3.client('lexv2-runtime')
