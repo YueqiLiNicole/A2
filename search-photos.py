@@ -9,15 +9,18 @@ from botocore.vendored import requests as botocore_requests  # Deprecated in new
 
 # Define the client to interact with Lex
 client = boto3.client('lexv2-runtime')
+s3_client = boto3.client('s3')
 
 host = 'https://search-photos-vygvnrzj3wvay3jylfm7lpddzm.us-east-1.es.amazonaws.com'  # Use HTTPS
-global_index = 'photo'
+global_index = 'photos'
+
 
 def lambda_handler(event, context):
     print("event: ")
     print(event)
     
     last_user_kw = event.get('q', '')
+    object_key = last_user_kw + ".jpeg"
     print(last_user_kw)
     
     last_user_message = "show me " + last_user_kw
@@ -49,22 +52,21 @@ def lambda_handler(event, context):
                         keywords.extend(value["resolvedValues"])
                     elif "interpretedValue" in value:
                         keywords.append(value["interpretedValue"])
-    
+
+    # keywords = [w.capitalize() for w in keywords]
     print("Keywords extracted:", keywords)
-
-    query = {
-        "query": {
-            "terms_set": {
-                "labels": {
-                    "terms": keywords,
-                    "minimum_should_match_script": {
-                        "source": "1"
-                    },
-                }
-            }
-        }
-    }
-
+    
+    
+    keyword_two=None
+    search=""
+    keyword_one = keywords[0].capitalize()
+    search=search+keyword_one
+    print ("keyword: ", keyword_one)
+    print ("final search word: ", search)
+    
+    
+    
+    query = {"size":1000 ,"query": {"match": {"labels":keyword_one}}}
     query_json = json.dumps(query)  # Ensure the query is properly serialized as a JSON string
     
     session = get_session()
@@ -78,7 +80,26 @@ def lambda_handler(event, context):
     data = json.loads(response.text)
     print("opensearch return:")
     print(data)
+    
+    print("data")
+
+    es=data["hits"]["hits"]
+    res=[]
+    for i in es:
+        res.append(i["_source"]["objectKey"])
+    print (res)
+    files_json = json.dumps({"files":res})
+    print("files_json: ", files_json)
+
+    # Construct direct S3 URLs
+    s3_urls = []
+    for hit in data['hits']['hits']:
+        print("here")
+        s3_key = hit['_source']['objectKey']
+        url = f"https://6998-photos-b2.s3.amazonaws.com/{s3_key}"
+        s3_urls.append(url)
+
     return {
         'statusCode': 200,
-        'body': json.dumps('Test Successfully Completed!')
+        'body': json.dumps({'urls': s3_urls})
     }
