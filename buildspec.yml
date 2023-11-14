@@ -54,9 +54,8 @@ phases:
   post_build:
     commands:
       - echo Uploading to S3...
-      - aws s3 cp search-photos.zip s3://codepipeline-us-east-1-213013720519/P1/BuildArtif/search-photos.zip
+      - aws s3 cp search-photos.zip s3://6998-photos-b1/lambda/search-photos.zip
 
 artifacts:
   files:
     - search-photos.zip
-
