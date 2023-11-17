@@ -23,7 +23,7 @@ def lambda_handler(event, context):
     object_key = last_user_kw + ".jpeg"
     print(last_user_kw)
     
-    last_user_message = "show me " + last_user_kw
+    last_user_message = last_user_kw
     
     
     print(f"Message from frontend: {last_user_message}")
@@ -58,15 +58,15 @@ def lambda_handler(event, context):
     
     
     keyword_two=None
-    search=""
+    keyword = list()
     keyword_one = keywords[0].capitalize()
-    search=search+keyword_one
+    keyword.append(keyword_one)
+    if len(keywords) > 1:
+        keyword_two = keywords[1].capitalize()
+        keyword.append(keyword_two)
     print ("keyword: ", keyword_one)
-    print ("final search word: ", search)
     
-    
-    
-    query = {"size":1000 ,"query": {"match": {"labels":keyword_one}}}
+    query = {"size": 1000,"query": {"bool": {"should": [{"match": {"labels": keyword}}for keyword in keywords],"minimum_should_match": 1}}}
     query_json = json.dumps(query)  # Ensure the query is properly serialized as a JSON string
     
     session = get_session()
@@ -80,7 +80,6 @@ def lambda_handler(event, context):
     data = json.loads(response.text)
     print("opensearch return:")
     print(data)
-    
     print("data")
 
     es=data["hits"]["hits"]
@@ -98,6 +97,7 @@ def lambda_handler(event, context):
         s3_key = hit['_source']['objectKey']
         url = f"https://6998-photos-b2.s3.amazonaws.com/{s3_key}"
         s3_urls.append(url)
+    
 
     return {
         'statusCode': 200,
