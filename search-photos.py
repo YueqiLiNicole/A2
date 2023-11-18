@@ -16,7 +16,7 @@ global_index = 'photos'
 
 
 def lambda_handler(event, context):
-    print("event: ")
+    # print("event: ")
     print(event)
     
     last_user_kw = event.get('q', '')
